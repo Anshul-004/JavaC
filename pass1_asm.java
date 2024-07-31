@@ -15,7 +15,7 @@ public class pass1_asm
         String opcodeTable[][] = new String[max][3]; //mnemonics, class, info
         String symbolTable[][] = new String[max][3]; //symbol, address, length
         String literalTable[][] = new String[max][2]; // literal, address
-        String poolTable[] = new String[max]; //literal
+        int poolTable[] = new int[max]; //literal
 
 
         //---- Loops begin ----
@@ -114,6 +114,24 @@ public class pass1_asm
             
         }
 
+        // POOL TABLE
+        for (int i = 0; i < literalTableLine; i++) {
+            if(literalTable[i][0]!=null && literalTable[i+1][0]!=null )
+				{
+					if(i==0)
+					{
+						poolTable[poolTableLine]=i+1;
+						poolTableLine++;
+					}
+					else if(Integer.parseInt(literalTable[i][1])<(Integer.parseInt(literalTable[i+1][1]))-1)
+					{	
+						poolTable[poolTableLine]=i+2;
+						poolTableLine++;
+					}
+				}
+        }
+
+
         // display
 
         //literal table
@@ -145,7 +163,14 @@ public class pass1_asm
             System.out.println(opcodeTable[i][0] + "\t\t" + opcodeTable[i][1] + "\t" + opcodeTable[i][2]);
         }
         System.out.println("------------------------------------");
-
+        
+        System.out.println("\nPOOL TABLE :\n");
+        System.out.println("--------------------------");
+        System.out.println("Literal Number");
+        System.out.println("--------------------------");
+        for (int i = 0; i < poolTableLine; i++) 
+            System.out.println(poolTable[i]);
+        System.out.println("--------------------------");
     }
-
+    
 }

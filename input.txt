@@ -13,4 +13,4 @@ LOOP	READ	B
 A	DS	1	
 B	DC	'1'	
 ='1'	
-END	
+END

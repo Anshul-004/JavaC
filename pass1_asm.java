@@ -65,17 +65,48 @@ public class pass1_asm
                     symbolTableLine++;
                 }
 
-                else
-                {
-                    opcodeTable[opcodeTableLine][0] = tokens[0]; //mnemonics
-
+                
+                //for opcode table, 
+                if ((tokens.length == 2 || tokens.length == 1) && !(tokens[0].charAt(0) == '=')) {
+                    opcodeTable[opcodeTableLine][0] = tokens[0];
                     
-                    opcodeTable[opcodeTableLine][1] = tokens[0];
-                    opcodeTable[opcodeTableLine][2] = tokens[0];
+                    if(tokens[0].equalsIgnoreCase("START")||tokens[0].equalsIgnoreCase("END")||tokens[0].equalsIgnoreCase("ORIGIN")||tokens[0].equalsIgnoreCase("EQU")||tokens[0].equalsIgnoreCase("LTORG"))
+                    {
+                        opcodeTable[opcodeTableLine][1] = "AD";
+                        opcodeTable[opcodeTableLine][2] = "R 11";
+                    }
+                    else if (tokens[0].equalsIgnoreCase("DS")||tokens[0].equalsIgnoreCase("DC"))
+                    {
+                        opcodeTable[opcodeTableLine][1] = "DS";
+                        opcodeTable[opcodeTableLine][2] = "R 7";
+                    }
+                    else
+                    {
+                        opcodeTable[opcodeTableLine][1] = "IS";
+                        opcodeTable[opcodeTableLine][2] = "(04, 1)";
+                    }
                     opcodeTableLine++;
                 }
-
-
+                else if (tokens.length == 3) {
+                    opcodeTable[opcodeTableLine][0] = tokens[1];
+                    
+                    if(tokens[1].equalsIgnoreCase("START")||tokens[1].equalsIgnoreCase("END")||tokens[1].equalsIgnoreCase("ORIGIN")||tokens[1].equalsIgnoreCase("EQU")||tokens[1].equalsIgnoreCase("LTORG"))
+                    {
+                        opcodeTable[opcodeTableLine][1] = "AD";
+                        opcodeTable[opcodeTableLine][2] = "R 11";
+                    }
+                    else if (tokens[1].equalsIgnoreCase("DS")||tokens[1].equalsIgnoreCase("DC"))
+                    {
+                        opcodeTable[opcodeTableLine][1] = "DS";
+                        opcodeTable[opcodeTableLine][2] = "R 7";
+                    }
+                    else
+                    {
+                        opcodeTable[opcodeTableLine][1] = "IS";
+                        opcodeTable[opcodeTableLine][2] = "(04, 1)";
+                    }
+                    opcodeTableLine++;
+                }
                 
             }
             lc++;
@@ -87,23 +118,33 @@ public class pass1_asm
 
         //literal table
         System.out.println("\nLITERAL TABLE :\n");
-        System.out.println("-------------------------");
+        System.out.println("--------------------------");
         System.out.println("Literal \t Address");
-        System.out.println("-------------------------");
+        System.out.println("--------------------------");
         for (int i = 0; i < literalTableLine; i++) {
             System.out.println(literalTable[i][0] + "\t\t" + literalTable[i][1] + "\t");
         }
-        System.out.println("-------------------------");
+        System.out.println("--------------------------");
         
         //symbol table
         System.out.println("\n\nSYMBOL TABLE :\n");
-        System.out.println("---------------------------------");
+        System.out.println("------------------------------------");
         System.out.println("Symbol    Address    Length");
-        System.out.println("---------------------------------");
+        System.out.println("------------------------------------");
         for (int i = 0; i < symbolTableLine; i++) {
-            System.out.println(symbolTable[i][0] + "\t" + symbolTable[i][1] + "\t" + symbolTable[i][2]);
+            System.out.println(symbolTable[i][0] + "\t\t" + symbolTable[i][1] + "\t\t" + symbolTable[i][2]);
         }
-        System.out.println("---------------------------------");
+        System.out.println("------------------------------------");
+        
+        //opcode table
+        System.out.println("\nOPCODE TABLE :\n");
+        System.out.println("------------------------------------");
+        System.out.println("Mnemonics    Class    Info");
+        System.out.println("------------------------------------");
+        for (int i = 0; i < opcodeTableLine; i++) {
+            System.out.println(opcodeTable[i][0] + "\t\t" + opcodeTable[i][1] + "\t" + opcodeTable[i][2]);
+        }
+        System.out.println("------------------------------------");
 
     }
 

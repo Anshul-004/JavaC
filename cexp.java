@@ -16,11 +16,12 @@ public class cexp {
         {
             try
             {
+                s.close();
                 throw new Myexp();
             }
             catch(Exception e)
             {
-            // throw new ArithmeticException("More than 5");
+                // throw new ArithmeticException("More than 5");
                 System.out.println(e.toString());
             }
         }

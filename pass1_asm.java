@@ -107,7 +107,7 @@ public class pass1_asm
                     }
                     opcodeTableLine++;
                 }
-                
+
             }
             lc++;
             line_count++;
@@ -164,6 +164,7 @@ public class pass1_asm
         }
         System.out.println("------------------------------------");
         
+        //pool table
         System.out.println("\nPOOL TABLE :\n");
         System.out.println("--------------------------");
         System.out.println("Literal Number");
@@ -171,6 +172,8 @@ public class pass1_asm
         for (int i = 0; i < poolTableLine; i++) 
             System.out.println(poolTable[i]);
         System.out.println("--------------------------");
+
+        br.close();
     }
     
 }
